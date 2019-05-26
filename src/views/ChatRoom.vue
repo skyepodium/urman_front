@@ -85,6 +85,7 @@
         class="bottom_nickname"
       >
       <input
+        type="text"
         :value="message"
         placeholder="메세지를 입력해주세요"
         class="bottom_message"
@@ -97,6 +98,17 @@
 
 <script>
 import nav from '../components/nav.vue'
+// import axios from 'axios'
+import Vue from 'vue'
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    // connection: 'http://10.6.6.200:3456',
+    connection: 'ws://localhost',
+    // connection: 'ws://10.6.6.200',
+}))
+
 export default {
     name: 'ChatRoom',
     components: {
@@ -106,19 +118,88 @@ export default {
       return {
         name: '',
         message: '',
-        list: []
+        list: [],
+        prevDomHeight: 0,
+        curDomHeight: 0,
+        status: '',
+        logs: []
       }
     },
-    created(){
+    created () {
+      // this.connect()
+      this.sockets.subscribe('chat', (data) => {
+        let name = data.name
+        let message = data.message
+        this.list.push({'name': name, 'message': message})
+        console.log(data)
+      });   
+    },
+    mounted(){
+      // this.sockets.subscribe('chat', (data) => {
+      // console.log(data)
+      // });   
+      var container = this.$el.querySelector("#mid");
+      console.log(container.scrollHeight);
+      container.scrollTop = container.scrollHeight
+    },
+    beforeUpdate () {
+      var container = this.$el.querySelector("#mid");
+      this.prevDomHeight = container.scrollHeight
+    },
+    updated() {
+      var container = this.$el.querySelector("#mid");
+      this.curDomHeight = container.scrollHeight
+      if(this.prevDomHeight !== this.curDomHeight){
+        console.log('updated')
+        container.scrollTop = container.scrollHeight
+      }
     },
     methods: {
+    // connect() {
+    //   // this.socket = new WebSocket("wss://echo.websocket.org");
+    //   this.socket = new WebSocket("ws://localhost");
+
+    //   this.socket.onopen = () => {
+    //     this.status = "connected";
+        
+
+    //     this.socket.onmessage = ({data}) => {
+    //       data = JSON.parse(data)
+    //       // this.list.push()
+    //       console.log(data.name)
+    //       console.log(data.message)
+    //       this.list.push({'name': data.name, 'message': data.message})
+    //       console.log(this.list)
+    //     };
+    //   };
+    // },
+    // disconnect() {
+    //   this.socket.close();
+    //   this.status = "disconnected";
+    //   this.logs = [];
+    // },
       sendMessage (e) {
         if(e.keyCode === 13 && this.name !== '' && this.message !== ''){
-          this.list.push({'name': this.name, 'message': this.message})
-          this.message = ''
-          var container = this.$el.querySelector("#mid");
-          console.log(container.scrollHeight);
-          container.scrollTop = container.scrollHeight
+          // this.list.push({name: this.name, message: this.message})
+          // let message = `${this.name}: ${this.message}`
+          let data = JSON.stringify({name: this.name, message: this.message})
+          // this.socket.send(data)
+        //  this.$socket.emit('chat', data)
+        //  this.$socket.emit('chat', `${this.name}: ${this.message}`)
+          this.$socket.emit('chat', data)
+        this.message = ''
+
+          // console.log('메시지 전송', {'name': this.name, 'message': this.message})
+          // axios.post('http://localhost:3000/post', message)
+          // .then((response) => {
+          //   this.message = ''
+          //   console.log(response)
+          // })
+          // .catch((error) => {
+          //   this.message = ''
+          //   console.log(error)
+          // })
+
         }
       }
     }
@@ -129,17 +210,19 @@ export default {
 
 #mid {
   width: calc(100% - 40px);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: calc(100vh - 190px);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: calc(100vh - 220px);
   background-color: #ececec;
   padding-left: 20px;
   padding-right: 20px;
   overflow:scroll;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .con {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .con_name {
@@ -161,6 +244,7 @@ export default {
   width: 100%;
   height: 130px;
   background-color: #ececec;
+  box-sizing: initial;
 }
 
 .bottom_nickname {
@@ -183,11 +267,29 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
   height: 80px;
-  line-height: 0px;
   font-size: 15px;
   border: 1px solid #ececec;
   border-top: none;
   box-sizing:inherit;
+}
+
+@media (min-width: 640px) {
+  #mid {
+    width: 600px;
+    height: calc(100vh - 250px);
+    height: 550px;
+  }
+
+  #bottom {
+    position:relative;
+    width: 640px;
+    /* left:50%;
+    margin-left:-320px; */
+    box-sizing: initial;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 50px;
+  }
 }
 
 </style>

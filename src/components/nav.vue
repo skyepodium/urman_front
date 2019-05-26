@@ -21,7 +21,7 @@
 export default {
     methods: {
         warn () {
-            alert('개발중입니다.')
+            alert('익명이라서 로그인 필요없다능')
         }
     }
 }
@@ -61,5 +61,21 @@ export default {
     background-color: #00cb71;
     font-weight: 500;
     font-size: 15px;
+}
+@media (min-width: 640px) {
+  .nav_inner{
+    width: 640px;
+    height: 80px;
+  }
+  .nav_title{
+    line-height: 80px;
+    font-size: 42px;
+  }
+  .nav_auth {
+    line-height: 44px;
+    height: 44px;
+    margin-top: 18px;
+    font-size: 18px;
+  }
 }
 </style>

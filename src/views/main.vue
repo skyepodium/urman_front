@@ -1,25 +1,9 @@
 <template>
   <div>
-    <!-- <div id="nav">
-      <div class="nav_inner">
-        <div
-          class="nav_title"
-          @click="$router.push({'name': 'main'})"
-        >
-          urman
-        </div>
-        <div
-          class="nav_auth"
-          @click="warn"
-        >
-          로그인
-        </div>
-      </div>
-    </div> -->
     <com-nav />
     <div id="top">
       <iframe
-        width="100%"
+        class="youtube"
         src="https://www.youtube.com/embed/xamJq1OrQ-M"
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -45,7 +29,7 @@
             </div>
             <div class="room_subinfo">
               <div class="room_auth">
-                습습후후
+                핫식스킹
               </div>
               <div class="room_genre">
                 전체 게시판
@@ -54,45 +38,28 @@
           </div>
         </div>
 
-        <!-- <div class="room">
-          <div
-            class="room_image"
-            style="background-image:url('https://upload.wikimedia.org/wikipedia/ko/9/92/%EC%96%B4%EB%B2%A4%EC%A0%B8%EC%8A%A4_%EC%9D%B8%ED%94%BC%EB%8B%88%ED%8B%B0_%EC%9B%8C.jpg');"
-          />
-          <div class="room_info">
-            <div class="room_title">
-              어디서든 신경안쓰고 습습후후
-            </div>
-            <div class="room_subinfo">
-              <div class="room_auth">
-                사유
-              </div>
-              <div class="room_genre">
-                익명게시판
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="room">
+        <div
+          class="room"
+          @click="$router.push({'name':'ChatRoom'})"
+        >
           <div
             class="room_image"
             style="background-image:url('https://cdn.lezhin.com/v2/comics/6750118146342912/images/wide?updated=1557406458513&width=688');"
           />
           <div class="room_info">
             <div class="room_title">
-              어디서든 신경안쓰고 습습후후
+              디자인을 위해 대칭을 위해 있는 게시판
             </div>
             <div class="room_subinfo">
               <div class="room_auth">
-                사유
+                여기로 와도
               </div>
               <div class="room_genre">
-                익명게시판
+                똑같은 곳으로 가요
               </div>
             </div>
           </div>
-        </div> -->
+        </div>        
       </div>
     </div>
     <div id="bottom">
@@ -107,77 +74,26 @@
 </template>
 
 <script>
-import axios from 'axios'
 import nav from '../components/nav.vue'
-// import Vue from 'vue'
-// import VueSocketIO from 'vue-socket.io'
-// import { store } from '../store/index.js'
-
-// Vue.use(new VueSocketIO({
-//     debug: true,
-//     connection: 'http://localhost:3000',
-//     vuex: {
-//         store,
-//         actionPrefix: 'SOCKET_',
-//         mutationPrefix: 'SOCKET_'
-//     }
-// }))
 
 export default {
     components: {
         'com-nav': nav
     },
-    created() {
-        let uri = 'http://localhost:3000/'
-        // let uri = 'http://localhost:8000/api'
-        axios.get(uri)
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
 }
 </script>
 
 <style scoped>
-#nav {
-    width: 100%;
+.youtube {
+  width: 100%;
+  height: 50vw;
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
 }
-
-.nav_inner {
-    width: calc(100% - 40px);
-    margin-left:auto;
-    margin-right: auto;
-    height: 50px;
-}
-
-.nav_title {
-    line-height: 50px;
-    font-size: 30px;
-    float:left;
-    color: #00cb71;
-    font-family: 'Baloo Bhai', cursive;
-}
-
-.nav_auth {
-    float: right;
-    line-height: 40px;
-    border: 1px solid #00cb71;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    color:white;
-    background-color: #00cb71;
-    font-weight: 500;
-    font-size: 15px;
-}
-
 #mid {
+    margin-top: 15px;
+    margin-bottom: 20px;
     width: calc(100% - 16px);    
     margin-left: auto;
     margin-right: auto;
@@ -192,6 +108,8 @@ export default {
 
 .mid_list {
     width: 100%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .room {
@@ -202,7 +120,7 @@ export default {
 .room_image { 
     border-radius: 2px;
     width: 100%;
-    height: 180px;
+    height: 50vw;
     overflow: hidden;
     background-position: center;
     -webkit-background-size: cover;
@@ -277,5 +195,28 @@ export default {
     text-align: center;
     margin-top: 25px;
     font-size: 15px;
+}
+
+@media (min-width: 640px) {
+  .youtube{
+    width: 640px;
+    height: 340px;
+  }
+  #mid {
+    width: 640px;
+  }
+  .room{
+    width: calc((100% - 16px) / 2);
+    display:inline-block;
+  }
+  .room:nth-of-type(2n+1) {
+    margin-right: 16px;
+  }
+
+  .room_image{
+    height: 156px;
+  }
+
+
 }
 </style>
