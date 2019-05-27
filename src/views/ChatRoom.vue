@@ -2,7 +2,7 @@
   <div>
     <com-nav />
     <div id="mid">
-      <div class="con">
+      <!-- <div class="con">
         <div class="con_name">
           지나가던 관상가
         </div>
@@ -63,7 +63,7 @@
         <div class="con_message">
           대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
         </div>
-      </div>
+      </div> -->
       <div
         v-for="(val, index) in list"
         :key="index"
@@ -98,15 +98,12 @@
 
 <script>
 import nav from '../components/nav.vue'
-// import axios from 'axios'
 import Vue from 'vue'
 import VueSocketIO from 'vue-socket.io'
 
 Vue.use(new VueSocketIO({
     debug: true,
-    // connection: 'http://10.6.6.200:3456',
-    connection: 'ws://localhost',
-    // connection: 'ws://10.6.6.200',
+    connection: 'ws://localhost:3000',
 }))
 
 export default {
@@ -126,7 +123,6 @@ export default {
       }
     },
     created () {
-      // this.connect()
       this.sockets.subscribe('chat', (data) => {
         let name = data.name
         let message = data.message
@@ -135,9 +131,6 @@ export default {
       });   
     },
     mounted(){
-      // this.sockets.subscribe('chat', (data) => {
-      // console.log(data)
-      // });   
       var container = this.$el.querySelector("#mid");
       console.log(container.scrollHeight);
       container.scrollTop = container.scrollHeight
@@ -155,51 +148,11 @@ export default {
       }
     },
     methods: {
-    // connect() {
-    //   // this.socket = new WebSocket("wss://echo.websocket.org");
-    //   this.socket = new WebSocket("ws://localhost");
-
-    //   this.socket.onopen = () => {
-    //     this.status = "connected";
-        
-
-    //     this.socket.onmessage = ({data}) => {
-    //       data = JSON.parse(data)
-    //       // this.list.push()
-    //       console.log(data.name)
-    //       console.log(data.message)
-    //       this.list.push({'name': data.name, 'message': data.message})
-    //       console.log(this.list)
-    //     };
-    //   };
-    // },
-    // disconnect() {
-    //   this.socket.close();
-    //   this.status = "disconnected";
-    //   this.logs = [];
-    // },
       sendMessage (e) {
         if(e.keyCode === 13 && this.name !== '' && this.message !== ''){
-          // this.list.push({name: this.name, message: this.message})
-          // let message = `${this.name}: ${this.message}`
           let data = JSON.stringify({name: this.name, message: this.message})
-          // this.socket.send(data)
-        //  this.$socket.emit('chat', data)
-        //  this.$socket.emit('chat', `${this.name}: ${this.message}`)
           this.$socket.emit('chat', data)
-        this.message = ''
-
-          // console.log('메시지 전송', {'name': this.name, 'message': this.message})
-          // axios.post('http://localhost:3000/post', message)
-          // .then((response) => {
-          //   this.message = ''
-          //   console.log(response)
-          // })
-          // .catch((error) => {
-          //   this.message = ''
-          //   console.log(error)
-          // })
-
+          this.message = ''
         }
       }
     }
