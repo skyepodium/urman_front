@@ -103,7 +103,8 @@ import VueSocketIO from 'vue-socket.io'
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'ws://localhost:3000',
+    // connection: 'ws://localhost:3000',
+    connection: 'ws://172.30.1.3:3000',
 }))
 
 export default {
@@ -123,6 +124,9 @@ export default {
       }
     },
     created () {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);      
+
       this.sockets.subscribe('chat', (data) => {
         let name = data.name
         let message = data.message
@@ -166,6 +170,7 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
   height: calc(100vh - 220px);
+  height: calc((var(--vh, 1vh) * 100) - 220px);  
   background-color: #ececec;
   padding-left: 20px;
   padding-right: 20px;
@@ -198,6 +203,7 @@ export default {
   height: 130px;
   background-color: #ececec;
   box-sizing: initial;
+  /* left: 50%; */
 }
 
 .bottom_nickname {
