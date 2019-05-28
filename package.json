@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
+    "socket.io": "^2.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vue-socket.io": "^3.0.7",
