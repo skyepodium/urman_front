@@ -103,8 +103,8 @@ import VueSocketIO from 'vue-socket.io'
 
 Vue.use(new VueSocketIO({
     debug: true,
-    // connection: 'ws://localhost:3000',
-    connection: 'ws://172.30.1.3:3000',
+    connection: 'ws://localhost:3000',
+    // connection: 'ws://172.30.1.3:3000',
 }))
 
 export default {
