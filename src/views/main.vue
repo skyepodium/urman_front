@@ -21,7 +21,7 @@
         >
           <div
             class="room_image"
-            style="background-image:url('https://cdn.lezhin.com/v2/comics/6750118146342912/images/wide?updated=1557406458513&width=688');"
+            :style="{ 'background-image': 'url(' + catUrl +')' }"
           />
           <div class="room_info">
             <div class="room_title">
@@ -44,7 +44,7 @@
         >
           <div
             class="room_image"
-            style="background-image:url('https://cdn.lezhin.com/v2/comics/6750118146342912/images/wide?updated=1557406458513&width=688');"
+            :style="{ 'background-image': 'url(' + nightUrl +')' }"
           />
           <div class="room_info">
             <div class="room_title">
@@ -67,19 +67,34 @@
         언제나 어디서나 I am urman~
       </div>
       <div class="bottom_writter">
-        prod.by SKYEPODUM
+        prod.by SKYEPODIUM
       </div>
+      <a href="https://github.com/skyepodium/urman_front">
+        <img
+          id="github"
+          src="../assets/github.png"
+          alt="githublogo"
+        >
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 import nav from '../components/nav.vue'
+import catImage from "@/assets/cat.jpg";
+import nightImage from "@/assets/night.jpg";
 
 export default {
     components: {
         'com-nav': nav
     },
+    data () {
+      return {
+        catUrl: catImage,
+        nightUrl: nightImage
+      }
+    }
 }
 </script>
 
@@ -115,6 +130,10 @@ export default {
 .room {
     width: 100%;
     margin-bottom: 16px;
+    cursor: pointer;
+}
+.room:hover {
+    opacity: 0.8;
 }
 
 .room_image { 
@@ -175,7 +194,7 @@ export default {
 #bottom {
     padding-top: 30px;
     width: 100%;
-    height: 150px;
+    height: 180px;
     background-color: #f7f8f9;
     color: #727272;
 }
@@ -196,6 +215,23 @@ export default {
     margin-top: 25px;
     font-size: 15px;
 }
+
+#github{
+  width: 50px;
+  height: 50px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+#github:hover{
+  opacity: 1;
+}
+
 
 @media (min-width: 640px) {
   .youtube{

@@ -45,6 +45,7 @@ export default {
     float:left;
     color: #00cb71;
     font-family: 'Baloo Bhai', cursive;
+    cursor: pointer;
 }
 
 .nav_auth {
@@ -61,6 +62,7 @@ export default {
     background-color: #00cb71;
     font-weight: 500;
     font-size: 15px;
+    cursor: pointer;
 }
 @media (min-width: 640px) {
   .nav_inner{

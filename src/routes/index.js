@@ -7,6 +7,7 @@ import main from '../views/main.vue'
 import ChatRoom from '../views/ChatRoom.vue'
 
 export const router = new VueRouter({
+    mode: 'history',    
     routes: [
         {
             path: '/',

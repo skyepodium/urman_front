@@ -15,7 +15,20 @@ let server = http.createServer((req, res) => {
 
 const io = socket(server)
 
+var cnt = 0;
+
 io.on('connection', (socket) => {
+    socket.on('enter', () => {
+        cnt += 1
+        console.log('현재 인원수', cnt)
+    })
+
+    socket.on('leave', () => {
+        cnt -= 1
+        console.log('현재 인원수', cnt)
+    })
+
+
     socket.on('chat', (msg) => {
         let data = JSON.parse(msg)
         console.log(data)

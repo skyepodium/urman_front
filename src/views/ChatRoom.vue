@@ -2,68 +2,6 @@
   <div>
     <com-nav />
     <div id="mid">
-      <!-- <div class="con">
-        <div class="con_name">
-          지나가던 관상가
-        </div>
-        <div class="con_message">
-          안녕하세요 지나가던 관상가 입니다.
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          인간지능
-        </div>
-        <div class="con_message">
-          대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          가나다라마바사 아자차카 타파하 가나다라마바사 아자차카 타파하 가나다라마바사 아자차카 타파하 가나다라마바사 아자차카 타파하 가나다라마바사 아자차카 타파하
-        </div>
-        <div class="con_message">
-          안녕하세요 지나가던 관상가 입니다.
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          인간지능
-        </div>
-        <div class="con_message">
-          대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          인간지능
-        </div>
-        <div class="con_message">
-          대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          인간지능
-        </div>
-        <div class="con_message">
-          대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
-        </div>
-      </div>
-
-      <div class="con">
-        <div class="con_name">
-          인간지능
-        </div>
-        <div class="con_message">
-          대세는 인간지능 외쳐 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후 습습후후
-        </div>
-      </div> -->
       <div
         v-for="(val, index) in list"
         :key="index"
@@ -104,7 +42,6 @@ import VueSocketIO from 'vue-socket.io'
 Vue.use(new VueSocketIO({
     debug: true,
     connection: 'ws://localhost:3000',
-    // connection: 'ws://172.30.1.3:3000',
 }))
 
 export default {
