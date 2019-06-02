@@ -15,9 +15,9 @@
         채팅방 목록 
       </div>
       <div class="mid_list">
-        <div
+        <router-link
           class="room"
-          @click="$router.push({'name':'ChatRoom'})"
+          to="/ChatRoom"
         >
           <div
             class="room_image"
@@ -36,11 +36,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </router-link>
 
-        <div
+        <router-link
           class="room"
-          @click="$router.push({'name':'ChatRoom'})"
+          to="ChatRoom"
         >
           <div
             class="room_image"
@@ -59,7 +59,7 @@
               </div>
             </div>
           </div>
-        </div>        
+        </router-link>
       </div>
     </div>
     <div id="bottom">
@@ -69,9 +69,13 @@
       <div class="bottom_writter">
         prod.by SKYEPODIUM
       </div>
-      <a href="https://github.com/skyepodium/urman_front">
+      <a
+        class="github_link"
+        href="https://github.com/skyepodium/urman_front"
+        target="_blank"
+      >
         <img
-          id="github"
+          class="github_image"
           src="../assets/github.png"
           alt="githublogo"
         >
@@ -130,7 +134,6 @@ export default {
 .room {
     width: 100%;
     margin-bottom: 16px;
-    cursor: pointer;
 }
 .room:hover {
     opacity: 0.8;
@@ -216,19 +219,24 @@ export default {
     font-size: 15px;
 }
 
-#github{
+.github_link{
   width: 50px;
   height: 50px;
-  display:block;
+  display: block;
   margin-left:auto;
   margin-right:auto;
-  border-radius: 5px;
-  margin-top: 20px;
+  margin-top:20px;
   margin-bottom: 30px;
+}
+
+.github_image{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
   opacity: 0.8;
 }
 
-#github:hover{
+.github_image:hover{
   opacity: 1;
 }
 

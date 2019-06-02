@@ -1,18 +1,19 @@
 <template>
   <div id="nav">
     <div class="nav_inner">
-      <div
+      <router-link
+        to="/"
         class="nav_title"
-        @click="$router.push({'name': 'main'})"
       >
         urman
-      </div>
-      <div
+      </router-link>
+
+      <a
         class="nav_auth"
         @click="warn"
       >
         로그인
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -45,7 +46,6 @@ export default {
     float:left;
     color: #00cb71;
     font-family: 'Baloo Bhai', cursive;
-    cursor: pointer;
 }
 
 .nav_auth {
@@ -64,6 +64,11 @@ export default {
     font-size: 15px;
     cursor: pointer;
 }
+
+.nav_auth:hover{
+  opacity: 0.9;
+}
+
 @media (min-width: 640px) {
   .nav_inner{
     width: 640px;
