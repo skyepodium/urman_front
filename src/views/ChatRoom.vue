@@ -2,6 +2,9 @@
   <div>
     <com-nav />
     <div id="mid">
+      <div class="count">
+        인원 {{ personCnt }}명
+      </div>
       <div
         v-for="(val, index) in list"
         :key="index"
@@ -13,7 +16,13 @@
         <div class="con_message">
           {{ val.message }}
         </div>
-      </div>          
+      </div>
+      <div
+        v-show="isTyping"
+        class="typing"
+      >
+        상대방이 메시지를 입력중입니다...
+      </div>           
     </div>
     <div id="bottom">
       <input
@@ -51,13 +60,22 @@ export default {
     },
     data () {
       return {
+        personCnt: 0,
         name: '',
         message: '',
         list: [],
         prevDomHeight: 0,
         curDomHeight: 0,
         status: '',
-        logs: []
+        logs: [],
+        isTyping: false,
+      }
+    },
+    watch: {
+      message (val) {
+        if(val.length > 0){
+          this.$socket.emit('type')
+        }
       }
     },
     created () {
@@ -70,11 +88,32 @@ export default {
         this.list.push({'name': name, 'message': message})
         console.log(data)
       });   
+
+      // this.sockets.subscribe('enter', () => {
+      //   console.log('새로운 분이 입장하셨습니다.')
+      //   this.list.push({'name': '', 'message': '새로운 분이 입장하셨습니다.'})
+      // });
+
+      this.sockets.subscribe('personCnt', (data) => {
+        this.personCnt = data
+      });
+
+      this.sockets.subscribe('otherTyping', () => {
+        this.isTyping = true;
+        var vm = this
+        window.setTimeout(() => {
+          vm.isTyping = false
+        }, 2000);
+      });      
+
+      console.log('this.socket', this.sockets)
     },
     mounted(){
       var container = this.$el.querySelector("#mid");
       console.log(container.scrollHeight);
       container.scrollTop = container.scrollHeight
+
+      // this.$socket.emit('newenter')
     },
     beforeUpdate () {
       var container = this.$el.querySelector("#mid");
@@ -106,7 +145,6 @@ export default {
   width: calc(100% - 40px);
   padding-top: 20px;
   padding-bottom: 20px;
-  height: calc(100vh - 220px);
   height: calc((var(--vh, 1vh) * 100) - 220px);  
   background-color: #ececec;
   padding-left: 20px;
@@ -114,6 +152,26 @@ export default {
   overflow:scroll;
   margin-left:auto;
   margin-right:auto;
+  position:relative;
+}
+.count {
+  width: 100px;
+  position: absolute;
+  top:0;
+  right:0;
+  background: rgba(255, 0, 140, 0.3);
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.typing{
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  bottom:0;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 15px;
 }
 
 .con {
