@@ -45,13 +45,6 @@
 
 <script>
 import nav from '../components/nav.vue'
-import Vue from 'vue'
-import VueSocketIO from 'vue-socket.io'
-
-Vue.use(new VueSocketIO({
-    debug: true,
-    connection: 'ws://localhost:3000',
-}))
 
 export default {
     name: 'ChatRoom',
@@ -109,6 +102,7 @@ export default {
       console.log('this.socket', this.sockets)
     },
     mounted(){
+      this.$socket.emit('returnPersonCnt')
       var container = this.$el.querySelector("#mid");
       console.log(container.scrollHeight);
       container.scrollTop = container.scrollHeight

@@ -17,6 +17,7 @@ let server = http.createServer((req, res) => {
 const io = socket(server)
 
 io.on('connection', (socket) => {
+    console.log(socket.id)
     io.emit('personCnt', io.engine.clientsCount)
     console.log('connection client 수', io.engine.clientsCount)
     socket.on('chat', (msg) => {
@@ -35,7 +36,10 @@ io.on('connection', (socket) => {
     socket.on('disconnected', () => {
         io.emit('personCnt', io.engine.clientsCount)
     })
-
+    
+    socket.on('returnPersonCnt', () => {
+        io.emit('personCnt', io.engine.clientsCount)
+    })
     // socket.on('newenter', () => {
     //     io.emit('enter')
     // })
