@@ -31,14 +31,21 @@
         placeholder="닉네임을 입력해주세요"
         class="bottom_nickname"
       >
-      <input
-        type="text"
-        :value="message"
-        placeholder="메세지를 입력해주세요"
-        class="bottom_message"
-        @input="message = $event.target.value"
-        @keyup="sendMessage"
-      >
+      <div id="bottom_content">
+        <input
+          type="text"
+          :value="message"
+          placeholder="메세지를 입력해주세요"
+          class="bottom_message"
+          @input="message = $event.target.value"
+          @keyup.enter="sendMessage"
+        >
+        <button
+          class="bottom_btn"
+          :disabled="message == ''"
+          @click="sendMessage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -122,8 +129,8 @@ export default {
       }
     },
     methods: {
-      sendMessage (e) {
-        if(e.keyCode === 13 && this.name !== '' && this.message !== ''){
+      sendMessage () {
+        if(this.name !== '' && this.message !== ''){
           let data = JSON.stringify({name: this.name, message: this.message})
           this.$socket.emit('chat', data)
           this.message = ''
@@ -195,6 +202,14 @@ export default {
   /* left: 50%; */
 }
 
+#bottom_content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ececec;
+  box-sizing: initial;
+}
+
 .bottom_nickname {
   display: block;
   width: calc(100% - 40px);
@@ -209,7 +224,7 @@ export default {
 
 .bottom_message {
   display: block;
-  width: calc(100% - 40px);
+  width: calc(80% - 40px);
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
@@ -219,6 +234,27 @@ export default {
   border: 1px solid #ececec;
   border-top: none;
   box-sizing:inherit;
+  float: left;
+}
+
+.bottom_btn {
+  display: block;
+  width: calc(18% - 40px);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 80px;
+  font-size: 15px;
+  border: 1px solid #ececec;
+  border-top: none;
+  box-sizing:inherit;
+  float: right;
+  background-color: #00cb71;
+}
+
+.bottom_btn:disabled {
+  background-color: #8ECCB1;
 }
 
 @media (min-width: 640px) {
