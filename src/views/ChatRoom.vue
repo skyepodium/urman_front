@@ -9,12 +9,15 @@
         v-for="(val, index) in list"
         :key="index"
         class="con"
+        :style="val.name===name ? 'text-align:right;' : 'text-align:left;'"
       >
         <div class="con_name">
           {{ val.name }}
         </div>
         <div class="con_message">
-          {{ val.message }}
+          <span>
+            {{ val.message }}
+          </span>
         </div>
       </div>
       <div
@@ -190,6 +193,10 @@ export default {
 .con_message {
   width: 100%;
   line-height: 20px;
+}
+
+.con_message span {
+  background-color: aquamarine;
 }
 
 #bottom{
