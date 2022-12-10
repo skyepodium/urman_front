@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.2",
     "core-js": "^2.6.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "socket.io": "^2.4.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
